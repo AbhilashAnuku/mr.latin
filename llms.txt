@@ -1,0 +1,38 @@
+# Mr.Latin
+
+> Zero-config, zero-dependency, drop-in library that translates any web page into
+> any language with a natural, conversational tone. Language only — adaptive
+> theming is the sibling library, TheSwitch.
+
+## What it does
+Reads the visible text already on the page, translates it in place (RTL-aware),
+and keeps dynamically-added content translated via a MutationObserver. No string
+extraction, no JSON catalogs, no build step. The text on screen IS the source.
+
+## Install / use
+- npm: `npm install mr.latin` then `import { MrLatin } from "mr.latin"; await new MrLatin().start();`
+- CDN (no build): `<script src="https://cdn.jsdelivr.net/npm/mr.latin/dist/mr-latin.global.js" data-mr-latin data-languages="en,de,fr,ar"></script>`
+
+## Two tiers
+- Tier 1 (default, zero-config): on-device Chromium Translator API — free, private, no key, no setup.
+- Tier 2 (opt-in): set `endpoint` / `data-endpoint` to your own LLM proxy for conversational *transcreation* (Claude recommended). The key stays on your server.
+
+## Core API
+- `new MrLatin(options).start(): Promise<MrLatin>`
+- methods: `setLanguage(code)`, `refresh()`, `destroy()`, `subscribe(fn) => unsubscribe`
+- props: `language`, `busy`
+- options: `sourceLanguage`, `language`, `languages`, `providers`, `dictionary`, `glossary`, `tone`, `register`, `autoTranslate`, `persist`, `widget`, `skipSelectors`, `endpoint`, `onSuggest`
+- providers: `BrowserTranslationProvider`, `createLLMProvider`, `createHttpProvider`, `createLibreTranslateProvider`
+- helpers: `nativeLanguageName`, `isRTL`, `applyDirection`, `formatNumber`, `formatCurrency`, `formatDate`, `flagFor`, `buildTranscreationPrompt`
+
+## Notes for AI agents integrating this
+- `tone` (conversational|warm|playful|neutral|formal) and `register` (casual|neutral|formal) drive transcreation so output matches the *situation* (a heading vs a button vs body copy vs legal fine print).
+- Exact overrides via `dictionary[targetLang][sourceText]` always win; the cache key is (text, target, tone, register).
+- Exclude content with `translate="no"`, `class="notranslate"`, or `data-mr-latin-skip`.
+- It is framework-agnostic; React/Vue/Svelte adapters exist at `mr.latin/react|vue|svelte`.
+
+## Links
+- README.md — full documentation and examples
+- CONTRIBUTING.md — zero-dependency, language-only contribution rules
+- SECURITY.md — privacy and API-key handling
+- Sibling: TheSwitch — adaptive theming (time / season / weather / location)

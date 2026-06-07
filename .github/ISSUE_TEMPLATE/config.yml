@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Sibling library — TheSwitch (theming)
+    url: https://github.com/AbhilashAnuku/TheSwitch
+    about: Adaptive light/dark/weather theming. Theme-related issues belong there — Mr.Latin is language only.

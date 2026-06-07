@@ -1,0 +1,99 @@
+{
+  "name": "mr.latin",
+  "version": "0.1.0",
+  "description": "Zero-config, zero-dependency drop-in library that translates any web page into any language and adds light/dark theming. Built from scratch.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Abhilash",
+  "keywords": [
+    "i18n",
+    "translation",
+    "localization",
+    "dark-mode",
+    "theme",
+    "rtl",
+    "zero-config",
+    "drop-in",
+    "react",
+    "vue",
+    "svelte"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "unpkg": "./dist/mr-latin.global.js",
+  "jsdelivr": "./dist/mr-latin.global.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js",
+      "require": "./dist/react.cjs"
+    },
+    "./vue": {
+      "types": "./dist/vue.d.ts",
+      "import": "./dist/vue.js",
+      "require": "./dist/vue.cjs"
+    },
+    "./svelte": {
+      "types": "./dist/svelte.d.ts",
+      "import": "./dist/svelte.js",
+      "require": "./dist/svelte.cjs"
+    },
+    "./global": "./dist/mr-latin.global.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "./dist/mr-latin.global.js"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "build:hidden": "tsup && npx --yes javascript-obfuscator dist/mr-latin.global.js --output dist/mr-latin.global.js --compact true --control-flow-flattening true --string-array true --string-array-encoding base64",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
+    "seed:lisa": "node knowledge/seed-lisa.mjs",
+    "pack:dry": "npm pack --dry-run",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "react": ">=17",
+    "vue": ">=3"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@vitest/coverage-v8": "^2.1.8",
+    "jsdom": "^25.0.1",
+    "react": "^18.3.1",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8",
+    "vue": "^3.5.13"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

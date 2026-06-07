@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Startseite | Vereinigung Stuttgarter Studentenwohnheime e.V.</title>
+    <meta
+      name="description"
+      content="Studentenwohnheim Stuttgart mit 2.578 Wohnplätzen in 7 Studentenwohnheimen. Dein neues Zimmer!"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /*
+        Clean, from-scratch rebuild of the vssw.de homepage, used to demo
+        Mr.Latin — the LANGUAGE-only library. Mr.Latin translates the visible
+        copy of this page; it does not theme it.
+
+        The layout reads its palette from a small set of static light --ml-*
+        variables defined below. Mr.Latin never touches these.
+
+        Want adaptive light/dark theming too? Drop in the sibling library
+        TheSwitch — it owns the same --ml-* tokens and flips them for you. See
+        the note next to the Mr.Latin <script> at the bottom of this file.
+      */
+      :root {
+        /* Brand colours — fixed regardless of language. */
+        --vssw-green: #59af48;
+        --vssw-green-dark: #3d8a2f;
+        --vssw-orange: #f26c24;
+
+        /* Static light theme tokens. (TheSwitch would make these adaptive.) */
+        --ml-bg: #ffffff;
+        --ml-fg: #16181d;
+        --ml-surface: #f4f5f7;
+        --ml-border: #e3e5ea;
+        --ml-muted: #5b6270;
+        --ml-accent: #2563eb;
+        --ml-radius: 10px;
+        --ml-font-scale: 1.0625rem;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: Quicksand, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        font-size: var(--ml-font-scale, 1.0625rem);
+        line-height: 1.65;
+        background: var(--ml-bg, #ffffff);
+        color: var(--ml-fg, #16181d);
+      }
+      h1,
+      h2,
+      h3 {
+        font-weight: 700;
+        line-height: 1.15;
+        margin: 0 0 0.4em;
+      }
+      a {
+        color: var(--vssw-green);
+        text-decoration: none;
+      }
+      img {
+        max-width: 100%;
+        display: block;
+      }
+      .container {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* Header */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: var(--ml-bg, #fff);
+        border-bottom: 1px solid var(--ml-border, #e3e5ea);
+      }
+      .bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        height: 76px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: var(--vssw-green);
+        letter-spacing: 0.5px;
+      }
+      .brand small {
+        display: block;
+        font-size: 0.7rem;
+        font-weight: 500;
+        color: var(--ml-muted, #5b6270);
+        letter-spacing: 0;
+      }
+      nav.main a {
+        color: var(--ml-fg, #16181d);
+        font-weight: 600;
+        font-size: 0.95rem;
+        margin-inline-start: 18px;
+        white-space: nowrap;
+      }
+      nav.main a:hover {
+        color: var(--vssw-green);
+      }
+      nav.main a.portal {
+        color: #fff;
+        background: var(--vssw-green);
+        padding: 8px 14px;
+        border-radius: 8px;
+      }
+      @media (max-width: 900px) {
+        nav.main {
+          display: none;
+        }
+      }
+
+      /* Hero */
+      .hero {
+        position: relative;
+        color: #fff;
+        background:
+          linear-gradient(rgba(13, 40, 7, 0.55), rgba(13, 40, 7, 0.55)),
+          url("https://www.vssw.de/UP1/wp-content/uploads/2025/12/VSSW-Header-1.png")
+            center / cover no-repeat;
+      }
+      .hero .panel {
+        max-width: 620px;
+        padding: 120px 0;
+      }
+      .hero h1 {
+        font-size: clamp(2rem, 1.4rem + 3vw, 3.25rem);
+      }
+      .hero p.lead {
+        font-size: 1.25rem;
+        opacity: 0.95;
+      }
+      .btns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 28px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 14px 26px;
+        border-radius: 10px;
+        font-weight: 700;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: all 0.25s ease;
+      }
+      .btn-primary {
+        background: var(--vssw-green);
+        color: #fff;
+      }
+      .btn-primary:hover {
+        background: var(--vssw-green-dark);
+      }
+      .btn-ghost {
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        border-color: #fff;
+      }
+      .btn-ghost:hover {
+        background: #fff;
+        color: var(--vssw-green-dark);
+      }
+
+      /* Sections */
+      section.block {
+        padding: 80px 0;
+      }
+      .eyebrow {
+        color: var(--vssw-green);
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+      }
+      h2.section-title {
+        font-size: clamp(1.6rem, 1.2rem + 2vw, 2.4rem);
+        max-width: 18ch;
+      }
+      .rotator {
+        font-size: clamp(1.4rem, 1rem + 2vw, 2rem);
+        font-weight: 700;
+        color: var(--vssw-green);
+        min-height: 1.4em;
+      }
+      .rotator .word {
+        display: none;
+      }
+      .rotator .word.active {
+        display: inline;
+      }
+      .intro {
+        max-width: 70ch;
+        color: var(--ml-fg, #16181d);
+        margin-top: 16px;
+      }
+
+      /* Cards */
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+        margin-top: 40px;
+      }
+      @media (max-width: 900px) {
+        .cards {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 540px) {
+        .cards {
+          grid-template-columns: 1fr;
+        }
+      }
+      .card {
+        position: relative;
+        border-radius: 14px;
+        overflow: hidden;
+        aspect-ratio: 4 / 3;
+        color: #fff;
+        display: flex;
+        align-items: flex-end;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+      }
+      .card img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        transition: transform 0.4s ease;
+      }
+      .card:hover img {
+        transform: scale(1.06);
+      }
+      .card .cap {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.65));
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
+
+      /* Portal CTA */
+      .cta {
+        background: var(--vssw-green);
+        color: #fff;
+        text-align: center;
+      }
+      .cta h2 {
+        font-size: clamp(1.6rem, 1.2rem + 2vw, 2.2rem);
+      }
+
+      /* Footer */
+      footer {
+        background: var(--ml-surface, #f4f5f7);
+        border-top: 1px solid var(--ml-border, #e3e5ea);
+        color: var(--ml-fg, #16181d);
+      }
+      .foot-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 32px;
+        padding: 56px 0;
+      }
+      @media (max-width: 700px) {
+        .foot-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .foot-grid h3 {
+        color: var(--vssw-green);
+        font-size: 1.05rem;
+      }
+      .foot-links a {
+        display: block;
+        color: var(--ml-fg, #16181d);
+        padding: 4px 0;
+      }
+      .foot-links a:hover {
+        color: var(--vssw-green);
+      }
+      .legal {
+        border-top: 1px solid var(--ml-border, #e3e5ea);
+        padding: 18px 0;
+        font-size: 0.85rem;
+        color: var(--ml-muted, #5b6270);
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container bar">
+        <a class="brand notranslate" href="#" aria-label="VSSW Startseite">
+          VSSW
+          <small>Vereinigung Stuttgarter Studentenwohnheime e.V.</small>
+        </a>
+        <nav class="main" aria-label="Hauptnavigation">
+          <a href="#">Startseite</a>
+          <a href="#wohnheime">Wohnheime</a>
+          <a href="#infos">Wohnen – Infos</a>
+          <a href="#faq">FAQ</a>
+          <a href="#ueber-uns">Über uns</a>
+          <a class="portal" href="https://portal.vssw.de/" target="_blank" rel="noopener"
+            >Benutzer-Portal</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <div class="panel">
+          <h1>Damit Bildung nicht an Wohnraum scheitert.</h1>
+          <p class="lead">
+            Studierenden-Wohnheime in Stuttgart-Vaihingen und Stadtmitte.
+          </p>
+          <div class="btns">
+            <a
+              class="btn btn-primary"
+              href="https://portal.vssw.de/auth/register"
+              target="_blank"
+              rel="noopener"
+              >Jetzt bewerben</a
+            >
+            <a class="btn btn-ghost" href="#wohnheime">Unsere Wohnheime</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats / rotator -->
+    <section class="block">
+      <div class="container">
+        <p class="eyebrow">Stuttgart-Vaihingen &amp; Stadtmitte</p>
+        <h2 class="section-title">
+          7 Wohnheime in Stuttgart mit 2.578 attraktiven Wohnplätzen
+        </h2>
+        <p class="rotator" aria-label="Wohnraum für Studierende">
+          <span class="word active">Bezahlbarer</span><span class="word">Attraktiver</span
+          ><span class="word">Sicherer</span><span class="word">Fairer</span>
+          Wohnraum für Studierende
+        </p>
+        <p class="intro">
+          Die Vereinigung Stuttgarter Studentenwohnheime e.V. wurde 1969 von
+          Mitgliedern der Universität Stuttgart mit dem Ziel gegründet, attraktive
+          Wohnplätze für Studierende zu schaffen. Seit 1973 konnten auf den vom Land
+          Baden-Württemberg im Wege des Erbbaurechts zur Verfügung gestellten
+          Grundstücken in 7 Wohnheimanlagen 2.578 Wohnplätze errichtet werden – sowohl
+          auf dem Universitätscampus Stuttgart-Vaihingen als auch in der Stadtmitte.
+        </p>
+      </div>
+    </section>
+
+    <!-- Cards -->
+    <section class="block" id="wohnheime" style="padding-top: 0">
+      <div class="container">
+        <div class="cards">
+          <a class="card" href="#wohnheime">
+            <img
+              src="https://www.vssw.de/UP1/wp-content/uploads/2021/05/Allmandring-1-705x705.jpg"
+              alt="Wohnheim Allmandring I in Stuttgart"
+            />
+            <span class="cap">Wohnheime</span>
+          </a>
+          <a class="card" href="#ueber-uns">
+            <img
+              src="https://www.vssw.de/UP1/wp-content/uploads/2025/12/Ueber-uns-1-705x403.png"
+              alt="Über uns"
+            />
+            <span class="cap">Über uns</span>
+          </a>
+          <a class="card" href="#faq">
+            <img
+              src="https://www.vssw.de/UP1/wp-content/uploads/2025/12/FAQ-705x470.jpeg"
+              alt="Häufige Fragen"
+            />
+            <span class="cap">FAQ</span>
+          </a>
+          <a class="card" href="#infos">
+            <img
+              src="https://www.vssw.de/UP1/wp-content/uploads/2025/12/Tipps-fuer-Studierende-705x470.jpeg"
+              alt="Tipps für Studierende"
+            />
+            <span class="cap">Tipps für Studierende</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portal CTA -->
+    <section class="block cta" id="infos">
+      <div class="container">
+        <h2>Portal für unsere BewohnerInnen</h2>
+        <p>Bewerbung, Verträge und Anliegen – alles an einem Ort.</p>
+        <div class="btns" style="justify-content: center">
+          <a
+            class="btn btn-ghost"
+            href="https://portal.vssw.de/auth/login"
+            target="_blank"
+            rel="noopener"
+            >Benutzerportal öffnen</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="ueber-uns">
+      <div class="container foot-grid">
+        <div>
+          <h3>Kontakt</h3>
+          <p>
+            <strong>Verwaltung-Sprechzeiten</strong><br />
+            Dienstag und Donnerstag: 13:00 – 15:00 Uhr
+          </p>
+          <p>
+            <strong>Telefonsprechzeiten</strong><br />
+            Mo – Fr: 09:00 – 11:00 Uhr
+          </p>
+          <p class="notranslate">
+            Vereinigung Stuttgarter Studentenwohnheime e.V.<br />
+            Pfaffenwaldring 50 A<br />
+            70569 Stuttgart
+          </p>
+          <p class="notranslate">
+            Telefon: 0711 250855-51<br />
+            E-Mail: info@vssw.de
+          </p>
+        </div>
+        <div>
+          <h3>Mehr</h3>
+          <div class="foot-links">
+            <a href="#">Downloads</a>
+            <a href="#faq">FAQ</a>
+            <a href="#">Blog</a>
+            <a href="#">Kontakt</a>
+            <a href="#">Datenschutzerklärung</a>
+            <a href="#">Impressum</a>
+          </div>
+        </div>
+      </div>
+      <div class="legal notranslate">© 2026 VSSW. Alle Rechte vorbehalten.</div>
+    </footer>
+
+    <!--
+      Mr.Latin: clean from-scratch build, zero dependencies. Run `npm run build`
+      first so ../dist/mr-latin.global.js exists.
+
+      This demo runs Tier 1 by default: free, private, on-device translation via
+      the browser's built-in Chromium Translator API. No endpoint, no API key,
+      no setup. See the clearly-marked TIER 2 block below to switch to
+      conversational transcreation through an LLM proxy you control.
+
+      NOTE: Mr.Latin is language-only. For adaptive light/dark theming, add the
+      sibling library TheSwitch alongside this script — it owns the same --ml-*
+      tokens this page reads from and flips them between light and dark.
+    -->
+    <script src="../dist/mr-latin.global.js"></script>
+    <script>
+      // Curated overrides so the marquee/brand copy reads perfectly in English.
+      // Every other language is handled live by the on-device engine.
+      const dictionary = {
+        en: {
+          "Startseite": "Home",
+          "Wohnheime": "Residences",
+          "Wohnen – Infos": "Living – Info",
+          "FAQ": "FAQ",
+          "Über uns": "About us",
+          "Benutzer-Portal": "User Portal",
+          "Stuttgart-Vaihingen & Stadtmitte": "Stuttgart-Vaihingen & City Centre",
+          "Damit Bildung nicht an Wohnraum scheitert.":
+            "So that education never fails for lack of housing.",
+          "Studierenden-Wohnheime in Stuttgart-Vaihingen und Stadtmitte.":
+            "Student residences in Stuttgart-Vaihingen and the city centre.",
+          "Jetzt bewerben": "Apply now",
+          "Unsere Wohnheime": "Our residences",
+          "7 Wohnheime in Stuttgart mit 2.578 attraktiven Wohnplätzen":
+            "7 residences in Stuttgart with 2,578 attractive places to live",
+          "Bezahlbarer": "Affordable",
+          "Attraktiver": "Attractive",
+          "Sicherer": "Safe",
+          "Fairer": "Fair",
+          "Wohnraum für Studierende": "housing for students",
+          "Die Vereinigung Stuttgarter Studentenwohnheime e.V. wurde 1969 von Mitgliedern der Universität Stuttgart mit dem Ziel gegründet, attraktive Wohnplätze für Studierende zu schaffen. Seit 1973 konnten auf den vom Land Baden-Württemberg im Wege des Erbbaurechts zur Verfügung gestellten Grundstücken in 7 Wohnheimanlagen 2.578 Wohnplätze errichtet werden – sowohl auf dem Universitätscampus Stuttgart-Vaihingen als auch in der Stadtmitte.":
+            "The Association of Stuttgart Student Residences (VSSW) was founded in 1969 by members of the University of Stuttgart with the aim of creating attractive places to live for students. Since 1973, a total of 2,578 places across 7 residential complexes have been built — both on the University of Stuttgart-Vaihingen campus and in the city centre — on land provided by the State of Baden-Württemberg under hereditary building rights.",
+          "Tipps für Studierende": "Tips for students",
+          "Über uns ": "About us ",
+          "Portal für unsere BewohnerInnen": "A portal for our residents",
+          "Bewerbung, Verträge und Anliegen – alles an einem Ort.":
+            "Applications, contracts and requests — all in one place.",
+          "Benutzerportal öffnen": "Open the user portal",
+          "Kontakt": "Contact",
+          "Verwaltung-Sprechzeiten": "Office consultation hours",
+          "Dienstag und Donnerstag: 13:00 – 15:00 Uhr":
+            "Tuesday and Thursday: 1:00 – 3:00 pm",
+          "Telefonsprechzeiten": "Phone consultation hours",
+          "Mo – Fr: 09:00 – 11:00 Uhr": "Mon – Fri: 9:00 – 11:00 am",
+          "Mehr": "More",
+          "Downloads": "Downloads",
+          "Blog": "Blog",
+          "Datenschutzerklärung": "Privacy policy",
+          "Impressum": "Imprint",
+        },
+      };
+
+      // ── TIER 1 (default): free, private, on-device translation ──────────
+      // No endpoint, no key, no setup. Mr.Latin uses the browser's built-in
+      // Chromium Translator API to translate on the visitor's own machine.
+      new MrLatin({
+        sourceLanguage: "de",
+        languages: [
+          "de", "en", "fr", "es", "it", "tr", "ar", "fa", "zh", "ru", "uk", "hi",
+        ],
+        dictionary: dictionary,
+        // The flag-tile picker — a grid of flag tiles labelled in each
+        // language's own name, isolated in a shadow root.
+        widget: { position: "bottom-right" },
+        // Inline feedback loop: log any phrasing a visitor suggests.
+        onSuggest: function (suggestion) {
+          console.log("[Mr.Latin] suggestion", suggestion);
+        },
+      }).start();
+
+      // ── TIER 2 (optional): conversational transcreation via your proxy ───
+      // Uncomment to translate through an LLM endpoint YOU control. Your server
+      // holds the API key and calls the model (Claude recommended) — the key
+      // never ships to the browser. Output honours tone, register and locale.
+      //
+      // new MrLatin({
+      //   sourceLanguage: "de",
+      //   languages: [
+      //     "de", "en", "fr", "es", "it", "tr", "ar", "fa", "zh", "ru", "uk", "hi",
+      //   ],
+      //   tone: "warm",
+      //   register: "casual",
+      //   dictionary: dictionary,
+      //   providers: [
+      //     MrLatin.createLLMProvider({ endpoint: "/api/translate" }),
+      //   ],
+      //   widget: { position: "bottom-right" },
+      //   onSuggest: function (suggestion) {
+      //     console.log("[Mr.Latin] suggestion", suggestion);
+      //   },
+      // }).start();
+
+      // Word rotator (cycles the four adjectives). Each word is its own node,
+      // so Mr.Latin translates all four once and we just toggle visibility.
+      (function () {
+        const words = document.querySelectorAll(".rotator .word");
+        let i = 0;
+        setInterval(function () {
+          words[i].classList.remove("active");
+          i = (i + 1) % words.length;
+          words[i].classList.add("active");
+        }, 2000);
+      })();
+    </script>
+  </body>
+</html>
