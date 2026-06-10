@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mr.Latin — your site, in everyone's language</title>
+    <meta
+      name="description"
+      content="A zero-dependency, drop-in JS library that translates your whole page into the visitor's own language — conversational, not word-for-word. RTL handled. One script tag."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Mr.Latin — your site, in everyone's language" />
+    <meta property="og:description" content="Drop in one script and your page reads naturally in every visitor's language. Conversational, not literal. RTL handled. Zero dependencies." />
+    <meta property="og:image" content="./icon.svg" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+    <link rel="apple-touch-icon" href="./icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Telugu:wght@400;600;700&display=swap" rel="stylesheet" />
+    <script src="./mr-latin.global.js"></script>
+    <style>
+      /* ====================================================================
+         Mr.Latin landing — built with the house "ui-ux-pro-max" language.
+         Hand-authored, zero-dependency. Mr.Latin is LANGUAGE only; this page
+         is intentionally a single clean light theme (theming is the sibling
+         library, TheSwitch). All visible copy is translated live by the lib.
+         ==================================================================== */
+      :root {
+        --ml-bg: #ffffff;
+        --ml-fg: #0f1629;
+        --ml-surface: #f6f8fc;
+        --ml-surface-2: #eef2fa;
+        --ml-border: #e3e8f2;
+        --ml-muted: #54607a;
+        --ml-accent: #4f46e5;
+        --ml-accent-2: #7c3aed;
+        --ml-glow: 0 24px 60px -28px rgba(79, 70, 229, 0.55);
+
+        --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem;
+        --space-4: 1rem; --space-5: 1.5rem; --space-6: 2rem;
+        --space-7: 3rem; --space-8: 4.5rem;
+        --t-xs: 0.78rem; --t-sm: 0.9rem; --t-base: 1rem; --t-lg: 1.15rem;
+        --t-xl: clamp(1.35rem, 1.1rem + 1.3vw, 1.8rem);
+        --t-2xl: clamp(2.1rem, 1.4rem + 3.2vw, 3.4rem);
+        --r-sm: 8px; --r-md: 14px; --r-lg: 20px; --r-pill: 999px;
+        --shadow-1: 0 1px 2px rgba(16, 22, 41, 0.06);
+        --shadow-2: 0 18px 44px -20px rgba(16, 22, 41, 0.25);
+        --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        --dur: 0.2s;
+        --measure: 60ch;
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ml-fg);
+        background: var(--ml-bg);
+        font: var(--t-base) / 1.6 "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      }
+      h1, h2, h3 { margin: 0; line-height: 1.12; letter-spacing: -0.02em; font-weight: 700; }
+      p { margin: 0; }
+      a { color: var(--ml-accent); text-decoration: none; font-weight: 600; }
+      a:hover { text-decoration: underline; }
+      .ico { width: 1em; height: 1em; vertical-align: -0.125em; flex: none; }
+      :focus-visible { outline: 2px solid var(--ml-accent); outline-offset: 2px; border-radius: var(--r-sm); }
+      .skip { position: absolute; left: -999px; top: 0; z-index: 100; background: var(--ml-accent); color: #fff; padding: var(--space-2) var(--space-4); border-radius: 0 0 var(--r-sm) 0; font-weight: 700; }
+      .skip:focus { left: 0; }
+      .wrap { max-width: 1080px; margin: 0 auto; padding: 0 var(--space-5); }
+      .muted { color: var(--ml-muted); }
+
+      /* Header */
+      header.bar { position: sticky; top: 0; z-index: 40; background: color-mix(in srgb, var(--ml-bg) 86%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid var(--ml-border); }
+      header.bar .in { max-width: 1080px; margin: 0 auto; padding: var(--space-3) var(--space-5); display: flex; align-items: center; gap: var(--space-4); }
+      .logo { display: flex; align-items: center; gap: var(--space-3); font-weight: 800; font-size: var(--t-lg); letter-spacing: -0.02em; }
+      .logo img { width: 30px; height: 30px; border-radius: var(--r-sm); }
+      .logo .dot { color: var(--ml-accent); }
+      header.bar nav { margin-left: auto; display: flex; align-items: center; gap: var(--space-2); }
+      header.bar nav a { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--ml-muted); font-size: var(--t-sm); font-weight: 650; padding: var(--space-2) var(--space-3); border-radius: var(--r-sm); }
+      header.bar nav a:hover { color: var(--ml-fg); background: var(--ml-surface); text-decoration: none; }
+
+      /* Hero */
+      .hero { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: var(--space-7); align-items: center; padding: var(--space-8) 0 var(--space-7); }
+      @media (max-width: 880px) { .hero { grid-template-columns: 1fr; gap: var(--space-6); padding-top: var(--space-7); } }
+      .badge { display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border: 1px solid var(--ml-border); border-radius: var(--r-pill); background: var(--ml-surface); color: var(--ml-muted); font-size: var(--t-xs); font-weight: 700; }
+      .badge .ico { color: var(--ml-accent); }
+      h1 { font-size: var(--t-2xl); margin: var(--space-4) 0 var(--space-3); background: linear-gradient(120deg, var(--ml-accent), var(--ml-accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      p.lede { font-size: var(--t-lg); color: var(--ml-muted); max-width: var(--measure); margin-bottom: var(--space-5); }
+      .cta { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+      .btn { display: inline-flex; align-items: center; gap: var(--space-2); font: inherit; font-weight: 700; cursor: pointer; min-height: 44px; padding: var(--space-3) var(--space-5); border-radius: var(--r-md); border: 1px solid var(--ml-border); background: var(--ml-bg); color: var(--ml-fg); transition: border-color var(--dur) var(--ease), transform 0.1s var(--ease); }
+      .btn:hover { border-color: var(--ml-accent); transform: translateY(-1px); }
+      .btn.primary { color: #fff; border-color: transparent; background: linear-gradient(135deg, var(--ml-accent), var(--ml-accent-2)); box-shadow: 0 10px 24px -12px var(--ml-accent); }
+
+      /* Greeting stack (decorative, never translated) */
+      .greet { border: 1px solid var(--ml-border); border-radius: var(--r-lg); background: var(--ml-surface); box-shadow: var(--ml-glow); padding: var(--space-5); display: grid; gap: var(--space-3); }
+      .greet .row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--ml-border); }
+      .greet .row:last-child { border-bottom: 0; padding-bottom: 0; }
+      .greet .hi { font-size: 1.5rem; font-weight: 700; }
+      .greet .lang { font-size: var(--t-xs); color: var(--ml-muted); font-weight: 600; }
+      .greet .ar { font-family: "Noto Sans Arabic", "Noto Sans", sans-serif; direction: rtl; }
+      .greet .hi-dev { font-family: "Noto Sans Devanagari", "Noto Sans", sans-serif; }
+      .greet .te { font-family: "Noto Sans Telugu", "Noto Sans", sans-serif; }
+
+      /* Sections */
+      section.block { padding: var(--space-7) 0; border-top: 1px solid var(--ml-border); }
+      .eyebrow { color: var(--ml-accent); font-weight: 800; font-size: var(--t-xs); letter-spacing: 0.08em; text-transform: uppercase; }
+      .block > h2 { font-size: var(--t-xl); margin: var(--space-2) 0 var(--space-2); }
+      .block > p.sub { color: var(--ml-muted); max-width: var(--measure); margin-bottom: var(--space-5); }
+
+      .grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+      .card { background: var(--ml-surface); border: 1px solid var(--ml-border); border-radius: var(--r-md); box-shadow: var(--shadow-1); padding: var(--space-5); }
+      .card .glyph { width: 38px; height: 38px; display: grid; place-items: center; border-radius: var(--r-sm); margin-bottom: var(--space-3); color: var(--ml-accent); background: color-mix(in srgb, var(--ml-accent) 12%, transparent); }
+      .card h3 { font-size: var(--t-base); margin-bottom: var(--space-2); letter-spacing: -0.01em; }
+      .card p { font-size: var(--t-sm); color: var(--ml-muted); }
+
+      .callout { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); padding: var(--space-6); border-radius: var(--r-lg); color: #fff; background: linear-gradient(135deg, var(--ml-accent), var(--ml-accent-2)); box-shadow: var(--ml-glow); }
+      .callout .big { font-size: var(--t-lg); font-weight: 700; max-width: 40ch; }
+      .callout .arrow { margin-left: auto; font-weight: 800; display: inline-flex; align-items: center; gap: var(--space-2); }
+      @media (max-width: 620px) { .callout .arrow { margin-left: 0; } }
+
+      pre.code { margin: 0; background: #0f1629; color: #e7ecf6; border-radius: var(--r-md); padding: var(--space-4) var(--space-5); overflow-x: auto; font: var(--t-sm) / 1.55 ui-monospace, "Cascadia Code", "SF Mono", monospace; }
+      .code .k { color: #c4b5fd; } .code .s { color: #93c5fd; } .code .c { color: #7f8aa6; }
+      .start-grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+      footer.foot { border-top: 1px solid var(--ml-border); padding: var(--space-6) 0 var(--space-8); color: var(--ml-muted); font-size: var(--t-sm); }
+      footer.foot .in { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); align-items: center; }
+      footer.foot .brand { display: flex; align-items: center; gap: var(--space-2); font-weight: 700; color: var(--ml-fg); }
+      footer.foot .brand img { width: 22px; height: 22px; border-radius: var(--r-sm); }
+      footer.foot .sep { opacity: 0.45; }
+
+      @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="bar">
+      <div class="in">
+        <span class="logo" translate="no"><img src="./icon.svg" alt="" />Mr<span class="dot">.</span>Latin</span>
+        <nav aria-label="Primary">
+          <a href="https://github.com/AbhilashAnuku/mr.latin" target="_blank" rel="noopener" translate="no" aria-label="GitHub repository">
+            <svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.36-3.88-1.36-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.74 1.27 3.4.97.1-.76.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .98-.31 3.2 1.18a11.1 11.1 0 0 1 5.83 0c2.21-1.49 3.19-1.18 3.19-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.42.36.8 1.08.8 2.18v3.23c0 .31.2.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg>
+            GitHub
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap" id="main">
+      <section class="hero">
+        <div>
+          <span class="badge">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18" stroke-linecap="round"/></svg>
+            Zero-config translation
+          </span>
+          <h1>Your site speaks their language.</h1>
+          <p class="lede">One script tag, and every visitor reads your page naturally in their own language.</p>
+          <div class="cta">
+            <a class="btn primary" href="#start">Quick start</a>
+            <a class="btn" href="https://github.com/AbhilashAnuku/mr.latin" target="_blank" rel="noopener" translate="no">
+              <svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.36-3.88-1.36-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.74 1.27 3.4.97.1-.76.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .98-.31 3.2 1.18a11.1 11.1 0 0 1 5.83 0c2.21-1.49 3.19-1.18 3.19-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.42.36.8 1.08.8 2.18v3.23c0 .31.2.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg>
+              On GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="greet" translate="no" aria-hidden="true">
+          <div class="row"><span class="hi">Hello</span><span class="lang">English</span></div>
+          <div class="row"><span class="hi">Hola</span><span class="lang">Español</span></div>
+          <div class="row"><span class="hi">Bonjour</span><span class="lang">Français</span></div>
+          <div class="row"><span class="hi ar">مرحبًا</span><span class="lang">العربية</span></div>
+          <div class="row"><span class="hi hi-dev">नमस्ते</span><span class="lang">हिन्दी</span></div>
+          <div class="row"><span class="hi te">నమస్కారం</span><span class="lang">తెలుగు</span></div>
+        </div>
+      </section>
+
+      <section class="block" id="features">
+        <span class="eyebrow" translate="no">Why teams ship it</span>
+        <h2>Translation that reads like a person wrote it.</h2>
+        <div class="grid">
+          <div class="card">
+            <span class="glyph"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10" stroke-linecap="round"/></svg></span>
+            <h3>Every language, one line</h3>
+            <p>Mr.Latin translates every visible string, and keeps new content translated too.</p>
+          </div>
+          <div class="card">
+            <span class="glyph"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M7 8h10M7 12h6" stroke-linecap="round"/><path d="M4 5h16v11H9l-4 3z" stroke-linejoin="round"/></svg></span>
+            <h3>Conversational, not literal</h3>
+            <p>Optional AI transcreation makes copy sound native, matching its tone.</p>
+          </div>
+          <div class="card">
+            <span class="glyph"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M21 7H10a4 4 0 0 0 0 8h2M21 7l-3-3M21 7l-3 3M7 15l-3 3 3 3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <h3>Right-to-left, done right</h3>
+            <p>Arabic, Hebrew and Persian flip the layout automatically.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="callout">
+          <span class="big">Pick a language in the corner — the whole page re-reads instantly.</span>
+          <span class="arrow" translate="no" aria-hidden="true">pick ↘</span>
+        </div>
+      </section>
+
+      <section class="block" id="start" translate="no">
+        <span class="eyebrow">Quick start</span>
+        <h2>Two lines, no build step.</h2>
+        <p class="sub muted">Drop the tag on any page. Mr.Latin finds it, reads the config, and translates everything. Zero runtime dependencies.</p>
+        <div class="start-grid">
+          <pre class="code"><span class="c">&lt;!-- CDN: drop-in, auto-init --&gt;</span>
+<span class="k">&lt;script</span>
+  src=<span class="s">"https://cdn.jsdelivr.net/npm/mr.latin"</span>
+  <span class="s">data-mr-latin</span>
+  <span class="s">data-languages</span>=<span class="s">"en,es,fr,de,ar,hi,te"</span>
+<span class="k">&gt;&lt;/script&gt;</span></pre>
+          <pre class="code"><span class="c">// npm: for apps &amp; bundlers</span>
+<span class="k">import</span> MrLatin <span class="k">from</span> <span class="s">"mr.latin"</span>;
+
+<span class="k">new</span> MrLatin({
+  <span class="s">languages</span>: [<span class="s">"en"</span>, <span class="s">"ar"</span>, <span class="s">"hi"</span>],
+  <span class="s">tone</span>: <span class="s">"warm"</span>,
+}).start();</pre>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="wrap in">
+        <span class="brand" translate="no"><img src="./icon.svg" alt="" /> Mr.Latin</span>
+        <span class="muted">Built from scratch. Zero dependencies.</span>
+        <span class="sep" translate="no">·</span><span translate="no">© 2026 Abhilash Anuku</span>
+        <span class="sep" translate="no">·</span><a href="https://abhilashanuku.com" target="_blank" rel="noopener" translate="no">abhilashanuku.com</a>
+        <span class="sep" translate="no">·</span><a href="https://github.com/AbhilashAnuku/mr.latin" target="_blank" rel="noopener" translate="no">GitHub</a>
+        <span class="sep" translate="no">·</span><span translate="no">MIT</span>
+      </div>
+    </footer>
+
+    <script>
+      // Curated translations so the landing reads perfectly offline — no key, no
+      // network. (The library can also translate live via the on-device or LLM
+      // tiers; here we ship a dictionary so every flag works instantly.)
+      var dictionary = {
+        es: {
+          "Zero-config translation": "Traducción sin configuración",
+          "Your site speaks their language.": "Tu sitio habla su idioma.",
+          "One script tag, and every visitor reads your page naturally in their own language.": "Una sola etiqueta de script, y cada visitante lee tu página con naturalidad en su propio idioma.",
+          "Quick start": "Empezar",
+          "On GitHub": "En GitHub",
+          "Translation that reads like a person wrote it.": "Traducciones que parecen escritas por una persona.",
+          "Every language, one line": "Cada idioma, una línea",
+          "Mr.Latin translates every visible string, and keeps new content translated too.": "Mr.Latin traduce cada texto visible y mantiene traducido también el contenido nuevo.",
+          "Conversational, not literal": "Conversacional, no literal",
+          "Optional AI transcreation makes copy sound native, matching its tone.": "La transcreación con IA opcional hace que el texto suene natural, respetando su tono.",
+          "Right-to-left, done right": "De derecha a izquierda, bien hecho",
+          "Arabic, Hebrew and Persian flip the layout automatically.": "El árabe, el hebreo y el persa invierten el diseño automáticamente.",
+          "Pick a language in the corner — the whole page re-reads instantly.": "Elige un idioma en la esquina y toda la página se vuelve a leer al instante.",
+          "Built from scratch. Zero dependencies.": "Hecho desde cero. Cero dependencias."
+        },
+        fr: {
+          "Zero-config translation": "Traduction sans configuration",
+          "Your site speaks their language.": "Votre site parle leur langue.",
+          "One script tag, and every visitor reads your page naturally in their own language.": "Une seule balise de script, et chaque visiteur lit votre page naturellement dans sa propre langue.",
+          "Quick start": "Commencer",
+          "On GitHub": "Sur GitHub",
+          "Translation that reads like a person wrote it.": "Une traduction qui semble écrite par une personne.",
+          "Every language, one line": "Chaque langue, une ligne",
+          "Mr.Latin translates every visible string, and keeps new content translated too.": "Mr.Latin traduit chaque texte visible et garde aussi le nouveau contenu traduit.",
+          "Conversational, not literal": "Naturel, pas littéral",
+          "Optional AI transcreation makes copy sound native, matching its tone.": "La transcréation par IA, en option, rend le texte naturel en respectant son ton.",
+          "Right-to-left, done right": "De droite à gauche, bien fait",
+          "Arabic, Hebrew and Persian flip the layout automatically.": "L'arabe, l'hébreu et le persan inversent la mise en page automatiquement.",
+          "Pick a language in the corner — the whole page re-reads instantly.": "Choisissez une langue dans le coin : toute la page se relit instantanément.",
+          "Built from scratch. Zero dependencies.": "Conçu de zéro. Zéro dépendance."
+        },
+        de: {
+          "Zero-config translation": "Übersetzung ohne Konfiguration",
+          "Your site speaks their language.": "Deine Website spricht ihre Sprache.",
+          "One script tag, and every visitor reads your page naturally in their own language.": "Ein einziges Script-Tag, und jeder Besucher liest deine Seite natürlich in seiner eigenen Sprache.",
+          "Quick start": "Loslegen",
+          "On GitHub": "Auf GitHub",
+          "Translation that reads like a person wrote it.": "Übersetzungen, die klingen, als hätte sie ein Mensch geschrieben.",
+          "Every language, one line": "Jede Sprache, eine Zeile",
+          "Mr.Latin translates every visible string, and keeps new content translated too.": "Mr.Latin übersetzt jeden sichtbaren Text und hält auch neue Inhalte übersetzt.",
+          "Conversational, not literal": "Natürlich, nicht wörtlich",
+          "Optional AI transcreation makes copy sound native, matching its tone.": "Die optionale KI-Transkreation lässt Texte natürlich klingen und wahrt ihren Ton.",
+          "Right-to-left, done right": "Rechts-nach-links, richtig gemacht",
+          "Arabic, Hebrew and Persian flip the layout automatically.": "Arabisch, Hebräisch und Persisch kehren das Layout automatisch um.",
+          "Pick a language in the corner — the whole page re-reads instantly.": "Wähle in der Ecke eine Sprache – die ganze Seite liest sich sofort neu.",
+          "Built from scratch. Zero dependencies.": "Von Grund auf gebaut. Null Abhängigkeiten."
+        },
+        ar: {
+          "Zero-config translation": "ترجمة بدون إعداد",
+          "Your site speaks their language.": "موقعك يتحدّث لغتهم.",
+          "One script tag, and every visitor reads your page naturally in their own language.": "وسم سكربت واحد، فيقرأ كل زائر صفحتك بطبيعية بلغته الخاصة.",
+          "Quick start": "ابدأ الآن",
+          "On GitHub": "على GitHub",
+          "Translation that reads like a person wrote it.": "ترجمة تبدو وكأن إنسانًا كتبها.",
+          "Every language, one line": "كل لغة، بسطر واحد",
+          "Mr.Latin translates every visible string, and keeps new content translated too.": "يترجم Mr.Latin كل نص ظاهر، ويُبقي المحتوى الجديد مترجمًا أيضًا.",
+          "Conversational, not literal": "حوارية، لا حرفية",
+          "Optional AI transcreation makes copy sound native, matching its tone.": "تجعل الترجمة الإبداعية بالذكاء الاصطناعي النص يبدو طبيعيًا مع الحفاظ على نبرته.",
+          "Right-to-left, done right": "من اليمين إلى اليسار، بإتقان",
+          "Arabic, Hebrew and Persian flip the layout automatically.": "العربية والعبرية والفارسية تعكس التخطيط تلقائيًا.",
+          "Pick a language in the corner — the whole page re-reads instantly.": "اختر لغة من الزاوية، وتُقرأ الصفحة كلها من جديد فورًا.",
+          "Built from scratch. Zero dependencies.": "مبني من الصفر. بلا أي اعتماديات."
+        },
+        hi: {
+          "Zero-config translation": "बिना कॉन्फ़िगरेशन अनुवाद",
+          "Your site speaks their language.": "आपकी साइट उनकी भाषा बोलती है।",
+          "One script tag, and every visitor reads your page naturally in their own language.": "बस एक स्क्रिप्ट टैग, और हर विज़िटर आपके पेज को अपनी भाषा में स्वाभाविक रूप से पढ़ता है।",
+          "Quick start": "शुरू करें",
+          "On GitHub": "GitHub पर",
+          "Translation that reads like a person wrote it.": "ऐसा अनुवाद जो किसी इंसान का लिखा लगे।",
+          "Every language, one line": "हर भाषा, एक लाइन",
+          "Mr.Latin translates every visible string, and keeps new content translated too.": "Mr.Latin हर दिखने वाले टेक्स्ट का अनुवाद करता है और नई सामग्री को भी अनूदित रखता है।",
+          "Conversational, not literal": "संवादात्मक, शब्दशः नहीं",
+          "Optional AI transcreation makes copy sound native, matching its tone.": "वैकल्पिक AI ट्रांसक्रिएशन टेक्स्ट को उसके लहजे के साथ स्वाभाविक बनाता है।",
+          "Right-to-left, done right": "दाएँ-से-बाएँ, सही ढंग से",
+          "Arabic, Hebrew and Persian flip the layout automatically.": "अरबी, हिब्रू और फ़ारसी लेआउट को अपने आप उलट देते हैं।",
+          "Pick a language in the corner — the whole page re-reads instantly.": "कोने में एक भाषा चुनें — पूरा पेज तुरंत फिर से पढ़ा जाता है।",
+          "Built from scratch. Zero dependencies.": "शुरू से बनाया गया। कोई निर्भरता नहीं।"
+        },
+        te: {
+          "Zero-config translation": "కాన్ఫిగరేషన్ అవసరం లేని అనువాదం",
+          "Your site speaks their language.": "మీ సైట్ వాళ్ల భాష మాట్లాడుతుంది.",
+          "One script tag, and every visitor reads your page naturally in their own language.": "ఒకే ఒక్క స్క్రిప్ట్ ట్యాగ్, ప్రతి సందర్శకుడు మీ పేజీని వాళ్ల సొంత భాషలో సహజంగా చదువుతారు.",
+          "Quick start": "ప్రారంభించండి",
+          "On GitHub": "GitHub లో",
+          "Translation that reads like a person wrote it.": "ఒక మనిషి రాసినట్టు అనిపించే అనువాదం.",
+          "Every language, one line": "ప్రతి భాష, ఒక్క లైన్",
+          "Mr.Latin translates every visible string, and keeps new content translated too.": "Mr.Latin కనిపించే ప్రతి టెక్స్ట్‌ను అనువదిస్తుంది, కొత్త కంటెంట్‌ను కూడా అనువదించి ఉంచుతుంది.",
+          "Conversational, not literal": "సంభాషణాత్మకం, అక్షరాలా కాదు",
+          "Optional AI transcreation makes copy sound native, matching its tone.": "ఐచ్ఛిక AI ట్రాన్స్‌క్రియేషన్ టెక్స్ట్‌ను దాని శైలికి తగ్గట్టు సహజంగా మారుస్తుంది.",
+          "Right-to-left, done right": "కుడి-నుండి-ఎడమ, సరిగ్గా",
+          "Arabic, Hebrew and Persian flip the layout automatically.": "అరబిక్, హిబ్రూ, పర్షియన్ భాషలు లేఅవుట్‌ను ఆటోమేటిక్‌గా తిప్పుతాయి.",
+          "Pick a language in the corner — the whole page re-reads instantly.": "మూలలో ఒక భాషను ఎంచుకోండి — మొత్తం పేజీ తక్షణం మళ్లీ చదవబడుతుంది.",
+          "Built from scratch. Zero dependencies.": "మొదటి నుండి నిర్మించబడింది. ఎలాంటి డిపెండెన్సీలు లేవు."
+        }
+      };
+
+      (function () {
+        "use strict";
+        function start() {
+          var ML = window.MrLatin;
+          if (typeof ML !== "function") return;
+          new ML({
+            sourceLanguage: "en",
+            language: "en",
+            languages: ["en", "es", "fr", "de", "ar", "hi", "te"],
+            dictionary: dictionary,
+            persist: false,
+            widget: { position: "bottom-right" }
+          }).start();
+        }
+        if (document.readyState === "complete" || document.readyState === "interactive") start();
+        else document.addEventListener("DOMContentLoaded", start, { once: true });
+      })();
+    </script>
+  </body>
+</html>
