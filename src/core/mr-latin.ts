@@ -26,7 +26,7 @@ import { createLibreTranslateProvider } from "../providers/libretranslate";
 import { createLLMProvider } from "../providers/llm";
 
 /** Library version, surfaced as a static for diagnostics. */
-const VERSION = "0.1.0";
+const VERSION = "1.0.0";
 
 /** localStorage key for the user's chosen language. */
 const LANGUAGE_STORAGE_KEY = "mr.latin:v1:language";

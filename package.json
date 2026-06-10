@@ -1,10 +1,18 @@
 {
   "name": "mr.latin",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Zero-config, zero-dependency drop-in library that translates any web page into any language and adds light/dark theming. Built from scratch.",
   "type": "module",
   "license": "MIT",
-  "author": "Abhilash",
+  "author": "Abhilash Anuku",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbhilashAnuku/mr.latin.git"
+  },
+  "homepage": "https://github.com/AbhilashAnuku/mr.latin#readme",
+  "bugs": {
+    "url": "https://github.com/AbhilashAnuku/mr.latin/issues"
+  },
   "keywords": [
     "i18n",
     "translation",
