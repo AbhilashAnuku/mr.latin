@@ -1,14 +1,18 @@
 # AGENTS.md — Mr.Latin
 
-This project follows the **workspace operating manual**. Read the full brief in
-the workspace root: **`../AGENTS.md`** (daily loop, roadmap, playbooks, UI/UX +
-responsiveness checklist, safety rules, escalation).
+Build &amp; verify (run in this folder):
 
-The human-navigable knowledge map is the **Obsidian vault** at **`../vault/`** —
-open that folder in Obsidian to see the project tree as a graph.
+- `npm install`
+- `npm run typecheck`
+- `npm run test`
+- `npm run build`
 
-**Green gate (run in this folder):** `npm run typecheck` · `npm test` · `npm run build`.
+Ground rules:
 
-**Hard rules:** never publish / go public / add a runtime dependency, and never
-move/rename/delete files, **without explicit human confirmation**. Mr.Latin is
-**language only** (theming is the sibling, TheSwitch). See `CLAUDE.md`.
+- Zero runtime dependencies.
+- Mr.Latin is **language only** — theming lives in the sibling library, TheSwitch.
+- The public API (`src/index.ts`, adapters, `data-*` auto-init, CDN global) is a
+  contract — keep it stable; all checks must pass before committing.
+- No telemetry. Translation provider keys stay server-side, never in the bundle.
+
+See `README.md` for usage.
